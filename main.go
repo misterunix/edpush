@@ -37,4 +37,7 @@ func main() {
 	t1 = path.Join(workingDir, "template1.py")
 	t2 = path.Join(workingDir, "template2.py")
 
+	os.Remove(t1)
+	os.Remove(t2)
+
 }

@@ -20,4 +20,5 @@ type tmpl1 struct {
 	Count        int
 	SmallImage   string
 	LargeImage   string
+	ModelsPath   string
 }
