@@ -3,8 +3,10 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"log"
 	"os"
 	"path"
+	"text/template"
 )
 
 //go:embed template1.tpl
@@ -39,5 +41,11 @@ func main() {
 
 	os.Remove(t1)
 	os.Remove(t2)
+
+	tmpl, err := template.New("passOne").Parse(template1)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "s1 Parse:", err)
+		log.Fatalln(err)
+	}
 
 }
