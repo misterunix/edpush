@@ -18,6 +18,25 @@ var template2 string
 func main() {
 	fmt.Println("Hello, edpush!")
 
+	md := mainData{
+		RandomNumber:  42,
+		Prompt:        "A beautiful landscape",
+		NPrompt:       "low quality, blurry",
+		ModelLocation: "models/stable-diffusion",
+		Model:         "default-model",
+		LoraLocation:  "models/lora",
+		Steps:         50,
+		Width:         512,
+		Height:        512,
+		ScaleUp:       true,
+		RemoveSmall:   false,
+		Sampler:       "dpmpp_2s_a",
+		Count:         1,
+		SmallImage:    "small.png",
+		LargeImage:    "large.png",
+		ModelsPath:    "/path/to/models",
+	}
+
 	userHome, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println("Error getting user home directory:", err)
@@ -45,6 +64,20 @@ func main() {
 	tmpl, err := template.New("passOne").Parse(template1)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "s1 Parse:", err)
+		log.Fatalln(err)
+	}
+
+	small, err := os.OpenFile(t1, os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "small OpenFile:", err)
+		log.Fatalln(err)
+	}
+
+	defer small.Close()
+
+	err = tmpl.Execute(small, md)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "s1 Execute:", err)
 		log.Fatalln(err)
 	}
 
