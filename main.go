@@ -77,7 +77,7 @@ func main() {
 
 	err = tmpl.Execute(small, md)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "s1 Execute:", err)
+		fmt.Fprintln(os.Stderr, "tmpl.Execute(small, md):", err)
 		log.Fatalln(err)
 	}
 
