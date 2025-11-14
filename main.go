@@ -18,6 +18,9 @@ var template1 string
 //go:embed template2.tpl
 var template2 string
 
+//go:embed samplers.txt
+var samplers string
+
 func init() {
 
 	var err error
@@ -91,6 +94,20 @@ func main() {
 	if err != nil {
 		log.Fatalln("Error unmarshalling config file:", err)
 	}
+
+	err = loadModelsList(md.ModelsPath)
+	if err != nil {
+		log.Fatalln("Error loading models list:", err)
+	}
+	fmt.Println("Loaded models count:", len(modelsList))
+
+	err = loadLorasList(path.Join(md.ModelsPath, "lora"))
+	if err != nil {
+		log.Fatalln("Error loading loras list:", err)
+	}
+	fmt.Println("Loaded loras count:", len(lorasList))
+
+	fmt.Println("Samplers count:", len(samplers))
 
 	// Generate the two python scripts from templates
 
@@ -183,4 +200,34 @@ func createBlankConfig(configPath string) (bool, error) {
 		return true, nil
 	}
 	return true, nil
+}
+
+// load a list of models from the models directory
+func loadModelsList(modelsPath string) error {
+	files, err := os.ReadDir(modelsPath)
+	if err != nil {
+		return err
+	}
+
+	for _, file := range files {
+		if !file.IsDir() {
+			modelsList = append(modelsList, file.Name())
+		}
+	}
+	return nil
+}
+
+// load a list of loras from the lora directory
+func loadLorasList(loraPath string) error {
+	files, err := os.ReadDir(loraPath)
+	if err != nil {
+		return err
+	}
+
+	for _, file := range files {
+		if !file.IsDir() {
+			lorasList = append(lorasList, file.Name())
+		}
+	}
+	return nil
 }

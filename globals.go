@@ -31,3 +31,6 @@ type mainData struct {
 var infile string
 
 var md mainData
+
+var modelsList []string
+var lorasList []string

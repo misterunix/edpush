@@ -1,6 +1,6 @@
 package main
 
-const VERSION = "2025.11.13.01"
+const VERSION = "2025.11.14.02"
 const COPYRIGHT = "2025, edpush authors"
 const LICENSE = "bsd-3-clause"
 const HOMEPAGE = "https://example.com"
