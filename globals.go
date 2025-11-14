@@ -21,7 +21,13 @@ type mainData struct {
 	RemoveSmall   bool
 	Sampler       string
 	Count         int
+	SmallPath     string
 	SmallImage    string
+	LargePath     string
 	LargeImage    string
 	ModelsPath    string
 }
+
+var infile string
+
+var md mainData
